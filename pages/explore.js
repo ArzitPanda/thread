@@ -1,15 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { getFirestore,getDocs, doc, collection, Query, query ,} from 'firebase/firestore'
-import app from "../config/firebase"
+import React from 'react'
 
 
 
 const explore = () => {
 
-const [count,setCount]=useState(1);
-const db = getFirestore(app); 
-const threadCollection = collection(db,'thread')
-const [quotes,setQuotes]=useState([]);
 
 
 
