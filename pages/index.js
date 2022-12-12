@@ -8,7 +8,7 @@ import styles from '../styles/Home.module.css'
 import {Store} from "./_app"
 import { exportComponentAsPNG } from 'react-component-export-image'
 import {useContext} from "react";
-
+import * as htmlToImage from 'html-to-image';
 import { Check, DownloadOutlined, SaveAlt } from '@mui/icons-material'
 import app from "../config/firebase"
 
@@ -98,13 +98,19 @@ const savePhoto =async ()=>{
 
 
 
-const downloadPhoto= ()=>{
+const downloadPhoto=async ()=>{
 
 const fileName= thread.split(thread.length-(thread.length*.8))+user.name;
 
 if(isAuth)
 {
-  exportComponentAsPNG(cardRef,{fileName});
+  const dataUrl = await htmlToImage.toPng(cardRef.current);
+ 
+  // download image
+  const link = document.createElement('a');
+  link.download = fileName+".png";
+  link.href = dataUrl;
+  link.click();
 }
 else
 {
