@@ -6,7 +6,7 @@ import Appbar from '../components/Appbar'
 import TabBar from '../components/TabBar'
 import styles from '../styles/Home.module.css'
 import {Store} from "./_app"
-import { exportComponentAsPNG } from 'react-component-export-image'
+// import { exportComponentAsPNG } from 'react-component-export-image'
 import {useContext} from "react";
 import * as htmlToImage from 'html-to-image';
 import { Check, DownloadOutlined, SaveAlt } from '@mui/icons-material'

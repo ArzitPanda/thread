@@ -1,6 +1,6 @@
 import {getAuth,TwitterAuthProvider,signInWithPopup,signOut} from 'firebase/auth';
 import app from './firebase';
-
+import {getFirestore,collection,doc,addDoc, setDoc} from "firebase/firestore"
 
 
 export const signIn =(app,context)=>{
@@ -23,6 +23,9 @@ userName:data.user.reloadUserInfo.screenName,
 
 
 })
+
+
+
 
 
 
