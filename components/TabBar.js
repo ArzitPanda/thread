@@ -290,9 +290,9 @@ onChange={(e)=>{txt.setTxtSize(e.target.value)}}
     position: 'fixed'
    }}>
 
-   {family.map((ele,key)=>{
+   {family.map((ele,index)=>{
         return(
-            <div style={{
+            <div key={index} style={{
                 backgroundColor:'whitesmoke',
                 padding:10,
                 borderRadius:4,
