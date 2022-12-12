@@ -15,19 +15,20 @@ import AdbIcon from '@mui/icons-material/Adb';
 import GestureIcon from '@mui/icons-material/Gesture';
 import {Store} from '../pages/_app';
 import app from "../config/firebase"
-import {signIn} from "../config/Controller"
-
+import {signIn,signOutCustom} from "../config/Controller"
+import { Explore } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
 
 const pages = [ 'Pricing', 'Blog'];
 
 
 function Appbar() {
-
+const router =useRouter();
 
     const data= React.useContext(Store);
 
-const {isAuth}= data;
+const {isAuth,user}= data;
 const settings = ['Profile', isAuth?'Logout':'sign in'];
 
 
@@ -38,7 +39,7 @@ const settings = ['Profile', isAuth?'Logout':'sign in'];
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
+    router.push("/explore");
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -56,7 +57,7 @@ const settings = ['Profile', isAuth?'Logout':'sign in'];
         }
 if(index===1 && isAuth===true)
         {
-            
+           signOutCustom(app,data);
         }
 
 
@@ -70,7 +71,7 @@ if(index===1 && isAuth===true)
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <GestureIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <GestureIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 2}} />
           <Typography
             variant="h6"
             noWrap
@@ -98,32 +99,9 @@ if(index===1 && isAuth===true)
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon />
+              <Explore  />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            
           </Box>
           <GestureIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
@@ -159,7 +137,7 @@ if(index===1 && isAuth===true)
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={user.photoURL} />
               </IconButton>
             </Tooltip>
             <Menu
